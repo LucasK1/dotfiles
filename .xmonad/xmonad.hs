@@ -37,7 +37,7 @@ myClickJustFocuses = False
 
 -- Width of the window border in pixels.
 --
-myBorderWidth   = 2
+myBorderWidth   = 0
 
 -- modMask lets you specify which modkey you want to use. The default
 -- is mod1Mask ("left alt").  You may also consider using mod3Mask
@@ -269,10 +269,10 @@ myLogHook = return ()
 -- By default, do nothing.
 myStartupHook = do
 	spawnOnce "exec feh --bg-scale /home/lucask/Pictures/wallpapers/archbtw.png"
-	spawnOnce "picom -f --config /home/lucask/.config/picom/picom.conf &"
 	spawnOnce "setxkbmap pl"
-	spawnOnce "xmodmap -e \"clear lock\"" 
+	spawnOnce "xmodmap -e \"clear Lock\"" 
 	spawnOnce "xmodmap -e \"keycode 66 = Escape\"" 
+	spawnOnce "picom -f --config /home/lucask/.config/picom/picom.conf &"
 
 ------------------------------------------------------------------------
 myBar = "xmobar"
