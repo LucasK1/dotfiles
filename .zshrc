@@ -154,4 +154,6 @@ alias lt='exa -aT --color=always --group-directories-first' # tree listing
 alias cp="cp -i"
 alias mv='mv -i'
 alias rm='rm -i'
+
+# Bare git dotfiles repository
 alias gitdf='git --git-dir=/home/lucask/dotfiles.git --work-tree=/home/lucask'
