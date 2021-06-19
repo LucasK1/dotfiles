@@ -10,12 +10,14 @@
 import XMonad
 import Data.Monoid
 import System.Exit
+import XMonad.Layout.Spacing
+import XMonad.Layout.LayoutModifier
 import XMonad.Hooks.ManageDocks
-import Graphics.X11.ExtraTypes.XF86
 import XMonad.Hooks.DynamicLog
 import XMonad.Util.SpawnOnce
 import XMonad.Util.Run
-import XMonad.Util.EZConfig(additionalKeys, additionalKeysP)
+import XMonad.Util.EZConfig
+import Graphics.X11.ExtraTypes.XF86
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
@@ -87,13 +89,13 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm,               xK_n     ), refresh)
 
     -- Move focus to the next window
-    , ((modm,               xK_Tab   ), windows W.focusDown)
-
-    -- Move focus to the next window
     , ((modm,               xK_j     ), windows W.focusDown)
+    , ((modm,               xK_Tab   ), windows W.focusDown)
+    , ((modm,               xK_Right ), windows W.focusDown)
 
     -- Move focus to the previous window
     , ((modm,               xK_k     ), windows W.focusUp  )
+    , ((modm,               xK_Left  ), windows W.focusUp  )
 
     -- Move focus to the master window
     , ((modm,               xK_m     ), windows W.focusMaster  )
@@ -200,7 +202,10 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 --
-myLayout = avoidStruts (tiled ||| Mirror tiled ||| Full)
+mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
+mySpacing i = spacingRaw True (Border i 0 i 0) True (Border 0 i 0 i) True
+
+myLayout = mySpacing 10 $ tiled ||| Mirror tiled ||| Full
   where
      -- default tiling algorithm partitions the screen into two panes
      tiled   = Tall nmaster delta ratio
@@ -304,7 +309,7 @@ defaults = def {
         mouseBindings      = myMouseBindings,
 
       -- hooks, layouts
-        layoutHook         = myLayout,
+        layoutHook         = avoidStruts $ myLayout,
         manageHook         = myManageHook,
         handleEventHook    = myEventHook,
         logHook            = myLogHook,
