@@ -11,7 +11,7 @@ Config {
    -- layout
    , sepChar =  "%"   -- delineator between plugin names and straight text
    , alignSep = "}{"  -- separator between left-right alignment
-   , template = "%StdinReader% } {  %EBBR% | %kbd% | %battery% || %date%  "
+   , template = "%StdinReader% } {  %EBBR% | %kbd% | %battery% | %default:Master% | %date%  "
 
    -- general behavior
    , lowerOnStart =     True    -- send to bottom of window stack on start
@@ -44,9 +44,8 @@ Config {
         -- StdinReader
         , Run StdinReader
 
-        -- Alsa Mixer
-        -- , Run Alsa "default" "Master" [] 10
-        -- , Run Volume "default" "Master" ["-t", "volume", "--flags=", "with_alsa"] 10
+        -- Volume
+        , Run Volume "default" "Master" [] 10
 
         -- network activity monitor (dynamic interface resolution)
 --        , Run DynNetwork     [ "--template" , "<dev>: <tx>kB/s|<rx>kB/s"
