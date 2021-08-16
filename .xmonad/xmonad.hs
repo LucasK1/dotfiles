@@ -70,11 +70,11 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- launch a terminal
     [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
 
-    -- launch dmenu
-    , ((modm,               xK_d     ), spawn "rofi -show run")
+    -- launch rofi drun
+    , ((modm,               xK_d     ), spawn "rofi -show drun -terminal alacritty")
 
-    -- launch gmrun
-    , ((modm .|. shiftMask, xK_p     ), spawn "gmrun")
+    -- launch rofi run
+    , ((modm .|. shiftMask, xK_d     ), spawn "rofi -show run  -terminal alacritty")
 
     -- close focused window
     , ((modm .|. shiftMask, xK_q     ), kill)
@@ -139,18 +139,22 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Run xmessage with a summary of the default keybindings (useful for beginners)
     , ((modm .|. shiftMask, xK_slash ), spawn ("echo \"" ++ help ++ "\" | xmessage -file -"))
 
+    -- Print screen
+    , ((modm              , xK_Print ), spawn "scrot -s -e 'xclip -selection clipboard -t image/png -i $f'")
+
     -- My keybindings --------------------------
     , ((0, xF86XK_MonBrightnessUp), spawn "lux -a 10%")    
     , ((0, xF86XK_MonBrightnessDown), spawn "lux -s 10%") 
 
+    , ((0, xF86XK_AudioRaiseVolume), spawn "pactl set-sink-volume @DEFAULT_SINK@ +5%")
+    , ((0, xF86XK_AudioLowerVolume), spawn "pactl set-sink-volume @DEFAULT_SINK@  -5%")
+    , ((0, xF86XK_AudioMute), spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle")    
+
     , ((0, xF86XK_AudioPlay), spawn "playerctl play-pause")    
     , ((0, xF86XK_AudioPrev), spawn "playerctl previous")    
     , ((0, xF86XK_AudioNext), spawn "playerctl next")  
-
-    , ((0, xF86XK_AudioRaiseVolume), spawn "pactl set-sink-volume @DEFAULT_SINK@ +1.5%")
-    , ((0, xF86XK_AudioLowerVolume), spawn "pactl set-sink-volume @DEFAULT_SINK@  -1.5%")
-    , ((0, xF86XK_AudioMute), spawn"pactl set-sink-mute @DEFAULT_SINK@ toggle")    
-
+   
+    , ((modm              , xK_f     ), spawn "pcmanfm")
     ]
     ++
 
@@ -268,11 +272,12 @@ myLogHook = return ()
 --
 -- By default, do nothing.
 myStartupHook = do
-	spawnOnce "exec feh --bg-scale /home/lucask/Pictures/wallpapers/archbtw.png"
+	spawnOnce "exec feh --bg-scale /home/lucask/Pictures/wallpapers/redwood.jpg"
 	spawnOnce "setxkbmap pl"
 	spawnOnce "xmodmap -e \"clear Lock\"" 
 	spawnOnce "xmodmap -e \"keycode 66 = Escape\"" 
 	spawnOnce "picom -f --config /home/lucask/.config/picom/picom.conf &"
+        spawnOnce "trayer --edge top --align right --SetDockType true --SetPartialStrut true  --expand true --width 5 --transparent true --alpha 0 --tint 0x000000 --height 20 &"
 
 ------------------------------------------------------------------------
 myBar = "xmobar"
