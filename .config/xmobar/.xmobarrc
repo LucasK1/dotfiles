@@ -4,14 +4,14 @@ Config {
      font =         "xft:Bitstream Vera Sans Mono:size=12:bold:antialias=true"
    , bgColor =      "black"
    , fgColor =      "#646464"
-   , position =     Top
+   , position =     TopW L 95
    , border =       BottomB
    , borderColor =  "#646464"
 
    -- layout
    , sepChar =  "%"   -- delineator between plugin names and straight text
    , alignSep = "}{"  -- separator between left-right alignment
-   , template = "%StdinReader% } {  %EBBR% | %kbd% | %battery% | %default:Master% | %date%  "
+   , template = "%StdinReader% } {  %EBBR% | %kbd% | %battery% || %date%  "
 
    -- general behavior
    , lowerOnStart =     True    -- send to bottom of window stack on start
@@ -45,7 +45,7 @@ Config {
         , Run StdinReader
 
         -- Volume
-        , Run Volume "default" "Master" [] 10
+        -- , Run Alsa "default" "Master" [] 
 
         -- network activity monitor (dynamic interface resolution)
 --        , Run DynNetwork     [ "--template" , "<dev>: <tx>kB/s|<rx>kB/s"
