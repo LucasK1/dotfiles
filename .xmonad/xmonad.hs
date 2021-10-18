@@ -235,9 +235,6 @@ myStartupHook = do
     "trayer --edge top --align right --SetDockType true --SetPartialStrut true  --expand true --width 5 --transparent true --alpha 0 --tint 0x000000 --height 20"
   spawnOnce "xfce4-power-manager"
 
--- Seem to work sometimes
--- spawnOnce "xmodmap -e \"clear Lock\""
--- spawnOnce "xmodmap -e \"keycode 66 = Escape\""
 ------------------------------------------------------------------------
 myBar = "xmobar"
 
