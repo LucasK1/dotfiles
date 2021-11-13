@@ -77,6 +77,7 @@ myKeys conf@XConfig { XMonad.modMask = modm } = M.fromList
   , ((modm, xK_Tab), windows W.focusDown)
     -- Move focus to the previous window
   , ((modm, xK_k), windows W.focusUp)
+  , ((modm .|. shiftMask, xK_Tab), windows W.focusUp)
     -- Move focus to the master window
   , ((modm, xK_m), windows W.focusMaster)
     -- Swap the focused window and the master window
@@ -121,7 +122,7 @@ myKeys conf@XConfig { XMonad.modMask = modm } = M.fromList
   , ((0, xF86XK_AudioPlay), spawn "playerctl play-pause")
   , ((0, xF86XK_AudioPrev), spawn "playerctl previous")
   , ((0, xF86XK_AudioNext), spawn "playerctl next")
-  , ((modm, xK_f), spawn "pcmanfm")]
+  , ((modm, xK_f), spawn "thunar")]
   ++
   --
   -- mod-[1..9], Switch to workspace N
@@ -234,6 +235,8 @@ myStartupHook = do
   spawnOnce
     "trayer --edge top --align right --SetDockType true --SetPartialStrut true  --expand true --width 5 --transparent true --alpha 0 --tint 0x000000 --height 20"
   spawnOnce "xfce4-power-manager"
+--  spawnOnce "redshift-gtk"
+  spawnOnce "kdeconnect-indicator"
 
 ------------------------------------------------------------------------
 myBar = "xmobar"
